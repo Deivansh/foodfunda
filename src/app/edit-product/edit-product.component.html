@@ -1,0 +1,57 @@
+<mat-spinner *ngIf="processing" class="center-div"></mat-spinner>
+<br>
+<mat-progress-bar *ngIf="processing2" mode="indeterminate"></mat-progress-bar>
+<div class="container" style="margin-bottom:20px;" >
+    <div class="row" >
+        <div class="col-lg-6" *ngFor="let product of Products" >
+            <mat-accordion>
+                <mat-expansion-panel>
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      {{product.ProductName}}
+                    </mat-panel-title>
+                    <mat-panel-description>
+                      Edit Or Delete
+                    </mat-panel-description>
+                  </mat-expansion-panel-header>
+                      <div class="row" >
+                        <div class="col-lg-8" >
+                          <img src="{{product.ProductImages[0].url}}" class="img img-thumbnail" style="height: 250px;" >
+                        </div>
+                        <div class="col-lg-4" >
+                          <input id="filechooser" type="file" accept="image/*" (change)="onchange($event)" hidden>
+                          <button mat-raised-button color="warn" (click)="openFileChooser()" >Edit Image</button><br><br>
+                          <button mat-raised-button color="primary" *ngIf="imageArr.length>0" (click)="UpdateImage(product._id,product.ProductImages[0].public_id)">Update</button>
+                        </div>
+                      </div>
+                      <br>
+                        <div class="row">
+                          <div class="col-lg-8" *ngFor="let image of imageArr" style="text-align: center;">
+                            <button class="btn btn-danger" style="width:50px;height:50px;border-radius:50%;" (click)="emptyImageArr()" >&times;</button>
+                            <img src="{{image}}" style="height:250px;" class="img img-thumbnail">
+                          </div>
+                      </div>
+                      <hr>
+                      <mat-form-field class="example-full-width">
+                        <input type="text" [(ngModel)]="product.ProductName" matInput placeholder="Product Name" name="productname">
+                      </mat-form-field>
+                      <mat-form-field class="example-full-width">
+                        <input type="number" required [(ngModel)]="product.ProductPrice" matInput placeholder="Product Price" name="productprice" min="1">
+                      </mat-form-field>
+                      <mat-form-field class="example-full-width">
+                        <input type="number" required [(ngModel)]="product.ProductServing" matInput placeholder="Product Serving" name="productserving" min="1">
+                      </mat-form-field>
+                      <mat-form-field class="example-full-width">
+                          <input type="number" required [(ngModel)]="product.Stock" matInput placeholder="Product Stock" name="productstock" min="1">
+                        </mat-form-field>
+                      <mat-form-field class="example-full-width">
+                        <textarea [(ngModel)]="product.ProductDescription" name="productdescription" matInput placeholder="Describe Product"></textarea>
+                      </mat-form-field>
+                      <button mat-raised-button color="accent" (click)="UpdateProduct(product)" >Update</button>
+                      <button mat-raised-button color="warn" (click)="DeleteProduct(product._id)" >Delete</button>
+                </mat-expansion-panel>
+            </mat-accordion><hr>
+        </div>
+      </div>
+</div>
+

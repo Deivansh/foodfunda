@@ -1,0 +1,44 @@
+<div>
+  <div class="container form-container">
+    <br>
+    <div class="row">
+      <div class="col-lg-8">
+        <form>
+          <mat-form-field class="example-full-width">
+            <input type="text" required [(ngModel)]="productObj.name" matInput placeholder="Product Name" name="productname">
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <input type="number" required [(ngModel)]="productObj.price" matInput placeholder="Product Price" name="productprice" min="1">
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <input type="number" required [(ngModel)]="productObj.serving" matInput placeholder="Product Serving" name="productserving" min="1">
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+              <input type="number" required [(ngModel)]="productObj.stock" matInput placeholder="Product Stock" name="productstock" min="1">
+            </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <textarea [(ngModel)]="productObj.description" name="productdescription" matInput placeholder="Describe Product"></textarea>
+          </mat-form-field>
+        </form>
+      </div>
+      <div class="col-lg-4 productview">        
+        <input id="filechooser" type="file" accept="image/*" (change)="onchange($event)" hidden>
+        <button mat-raised-button color="primary" (click)="openFileChooser()" >Upload...</button>
+        <br><br>
+        <div class="row">
+          <div class="col-lg-10" *ngFor="let image of productObj.images" style="text-align: center;">
+            <img src="{{image}}" class="img img-thumbnail">
+          </div>
+      </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12" style="text-align:center;">
+        <button mat-raised-button color="warn" (click)="SaveProduct()">Save</button>
+      </div>
+    </div>
+    <br>
+    <mat-progress-bar *ngIf="processing" mode="indeterminate"></mat-progress-bar>
+  </div>
+</div>
+
